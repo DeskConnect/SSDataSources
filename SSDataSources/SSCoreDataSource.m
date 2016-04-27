@@ -56,7 +56,6 @@
 - (void)dealloc {
     self.controller.delegate = nil;
     self.controller = nil;
-    self.coreDataMoveRowBlock = nil;
     [self.sectionUpdates removeAllObjects];
     [self.objectUpdates removeAllObjects];
 }
@@ -118,17 +117,6 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.controller sections][(NSUInteger)section];
     return [sectionInfo name];
-}
-
-- (void)tableView:(UITableView *)tableView
-moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
-      toIndexPath:(NSIndexPath *)destinationIndexPath {
-    
-    id item = [self itemAtIndexPath:sourceIndexPath];
-    
-    if (self.coreDataMoveRowBlock) {
-        self.coreDataMoveRowBlock(item, sourceIndexPath, destinationIndexPath);
-    }
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate

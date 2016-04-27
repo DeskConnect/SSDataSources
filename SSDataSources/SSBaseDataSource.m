@@ -180,6 +180,20 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     }
 }
 
+- (void)tableView:(UITableView *)tv
+moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
+      toIndexPath:(NSIndexPath *)destinationIndexPath {
+    
+    id item = [self itemAtIndexPath:sourceIndexPath];
+    
+    if (self.tableMoveBlock) {
+        self.tableMoveBlock(item,
+                            tv,
+                            sourceIndexPath,
+                            destinationIndexPath);
+    }
+}
+
 #pragma mark - UICollectionViewDataSource
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv

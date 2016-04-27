@@ -243,6 +243,13 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     [self.items insertObject:item
                      atIndex:(NSUInteger)destinationIndexPath.row];
     [self registerKVO];
+    
+    if (self.tableMoveBlock) {
+        self.tableMoveBlock(item,
+                            tableView,
+                            sourceIndexPath,
+                            destinationIndexPath);
+    }
 }
 
 #pragma mark Key-value observing

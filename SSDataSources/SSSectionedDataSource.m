@@ -116,7 +116,13 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
     [[self sectionAtIndex:sourceIndexPath.section].items removeObjectAtIndex:(NSUInteger)sourceIndexPath.row];
     [[self sectionAtIndex:destinationIndexPath.section].items insertObject:item
                                                                    atIndex:(NSUInteger)destinationIndexPath.row];
-  
+    
+    if (self.tableMoveBlock) {
+        self.tableMoveBlock(item,
+                            tableView,
+                            sourceIndexPath,
+                            destinationIndexPath);
+    }
 }
 
 #pragma mark - Moving

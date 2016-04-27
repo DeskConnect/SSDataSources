@@ -61,6 +61,12 @@ typedef void (^SSTableCellDeletionBlock)
                                       UITableView *parentView, // the parent table view
                                       NSIndexPath *indexPath); // the indexPath being deleted
 
+// Optional block used to respond to reordering of items.
+typedef void (^SSTableCellMoveBlock) (id object,                          // The object being moved
+                                      UITableView *parentView,            // The parent table view
+                                      NSIndexPath *sourceIndexPath,       // The source index path
+                                      NSIndexPath *destinationIndexPath); // The destination index path
+
 #pragma mark - NSIndexPath helpers
 
 /**
@@ -181,6 +187,14 @@ typedef void (^SSTableCellDeletionBlock)
  * See the Example project for a full implementation.
  */
 @property (nonatomic, copy) SSTableCellDeletionBlock tableDeletionBlock;
+
+/**
+ * To implement cell reordering, first specify a `tableActionBlock` that returns
+ * YES when called with SSCellActionTypeMove. Then specify this move block to
+ * be notified after items have been reordered. You do not need to update the
+ * data source following a move.
+ */
+@property (nonatomic, copy) SSTableCellMoveBlock tableMoveBlock;
 
 #pragma mark - UICollectionView
 
